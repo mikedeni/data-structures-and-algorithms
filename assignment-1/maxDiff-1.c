@@ -1,24 +1,22 @@
 #include <stdio.h>
 
 int maxDifference(int arr[], int n) {
-    int min_value = arr[0];
-    int max_value = arr[0];
+    int min = arr[0];
+    int max = arr[0];
 
     // หาค่ามากสุดและน้อยสุด
     for (int i = 1; i < n; i++) {
-        if (arr[i] < min_value) {
-            min_value = arr[i];
+        if (arr[i] < min) {
+            min = arr[i];
         }
 
-        if (arr[i] > max_value) {
-            max_value = arr[i];
+        if (arr[i] > max) {
+            max = arr[i];
         }
     }
 
     // ผลต่างมากสุด = ค่ามากสุด - ค่าน้อยสุด
-    int max_diff = max_value - min_value;
-
-    return max_diff;
+    return max - min;
 }
 
 int main() {
