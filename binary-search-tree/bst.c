@@ -102,6 +102,7 @@ Node *deleteNode(Node *root, int data)
         root->right = deleteNode(root->right, temp->data);
     }
 
+    // ส่งคืนค่าโหนด root ที่อาจถูกปรับเปลี่ยน
     return root;
 }
 
