@@ -30,6 +30,7 @@ Node *insertNode(Node *root, int data)
 {
     if (root == NULL)
     {
+        printf("Node %d inserted successfully.\n", data);
         root = createNode(data);
         return root;
     }
@@ -47,7 +48,7 @@ Node *insertNode(Node *root, int data)
     else
     {
         // ถ้าข้อมูลมีอยู่แล้ว
-        printf("Data: %d already exists in the BST.\n", data);
+        printf("Node %d already exists in the BST.\n", data);
     }
 
     return root;
@@ -189,13 +190,12 @@ int main()
             printf("Enter data to insert: ");
             scanf("%d", &data);
             root = insertNode(root, data);
-            printf("Node inserted successfully.\n");
             break;
         case 2:
             printf("Enter data to delete: ");
             scanf("%d", &data);
             root = deleteNode(root, data);
-            printf("Node deleted successfully.\n");
+            printf("Node %d deleted successfully.\n", data);
             break;
         case 3:
             printf("Enter data to search: ");
