@@ -135,7 +135,7 @@ void postorderTraversal(Node *root){
 
 int main(){
     Node *root = NULL;
-    int choice, data;
+    int choice, data, cntNum;
 
     while (1){
         printf("\nBinary Search Tree Operations:\n");
@@ -152,7 +152,6 @@ int main(){
 
         switch (choice){
         case 1:
-            int cntNum;
             printf("How many nodes do you want to insert? ");
             scanf("%d", &cntNum);
             for(int i = 0; i < cntNum; i++){
