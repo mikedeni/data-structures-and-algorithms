@@ -194,8 +194,16 @@ int main()
         case 2:
             printf("Enter data to delete: ");
             scanf("%d", &data);
-            root = deleteNode(root, data);
-            printf("Node %d deleted successfully.\n", data);
+            if (searchNode(root, data) == NULL)
+            {
+                printf("Node %d not found in the BST.\n", data);
+            }
+            else
+            {
+                root = deleteNode(root, data);
+                printf("Node %d deleted successfully.\n", data);
+            }
+
             break;
         case 3:
             printf("Enter data to search: ");
