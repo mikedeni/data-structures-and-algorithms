@@ -39,10 +39,15 @@ Node *insertNode(Node *root, int data)
         // ถ้าข้อมูลน้อยกว่า root, แทรกในลูกซ้าย
         root->left = insertNode(root->left, data);
     }
+    else if (data > root->data)
+    {
+        // ถ้าข้อมูลมากกว่า root, แทรกในลูกขวา
+        root->right = insertNode(root->right, data);
+    }
     else
     {
-        // ถ้าข้อมูลมากกว่าหรือเท่ากับ root, แทรกในลูกขวา
-        root->right = insertNode(root->right, data);
+        // ถ้าข้อมูลมีอยู่แล้ว
+        printf("Data: %d already exists in the BST.\n", data);
     }
 
     return root;
