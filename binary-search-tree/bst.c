@@ -2,19 +2,16 @@
 #include <stdlib.h>
 
 // โครงสร้างข้อมูล Node
-typedef struct Node
-{
+typedef struct Node{
     int data;           // เก็บค่าข้อมูลของโหนด
     struct Node *left;  // ตัวซี้ไปยังโหนดลูกทางซ้าย
     struct Node *right; // ตัวซี้ไปยังโหนดลูกทางขวา
 } Node;
 
 // ฟังก์ชันสร้างโหนด
-Node *createNode(int data)
-{
+Node *createNode(int data){
     Node *newNode = (Node *)malloc(sizeof(Node));
-    if (!newNode)
-    {
+    if (!newNode){
         // ตรวจสอบว่าการจัดสรรหน่วยความจำสำเร็จหรือไม่
         printf("Memory error\n");
         return NULL;
@@ -26,76 +23,56 @@ Node *createNode(int data)
 }
 
 // ฟังก์ชันแทรกข้อมูล
-Node *insertNode(Node *root, int data)
-{
-    if (root == NULL)
-    {
+Node *insertNode(Node *root, int data){
+    if (root == NULL){
         printf("Node %d inserted successfully.\n", data);
         root = createNode(data);
         return root;
     }
-
-    if (data < root->data)
-    {
+    if (data < root->data){
         // ถ้าข้อมูลน้อยกว่า root, แทรกในลูกซ้าย
         root->left = insertNode(root->left, data);
     }
-    else if (data > root->data)
-    {
+    else if (data > root->data){
         // ถ้าข้อมูลมากกว่า root, แทรกในลูกขวา
         root->right = insertNode(root->right, data);
-    }
-    else
-    {
+    }else{
         // ถ้าข้อมูลมีอยู่แล้ว
         printf("Node %d already exists in the BST.\n", data);
     }
-
     return root;
 }
 
 // ฟังก์ชันหาค่าน้อยที่สุด
-Node *findMin(Node *root)
-{
+Node *findMin(Node *root){
     // วนลูปไปทางซ้ายสุดของ BST เพื่อหาค่าน้อยที่สุด
-    while (root->left != NULL)
-    {
+    while (root->left != NULL){
         root = root->left;
     }
     return root;
 }
 
 // ฟังก์ชันลบข้อมูล: ใช้การเรียกซ้ำ (Recursive) เพื่อค้นหาและลบโหนดที่ต้องการ โดยรักษาคุณสมบัติของ BST ไว้ตลอดกระบวนการลบ
-Node *deleteNode(Node *root, int data)
-{
+Node *deleteNode(Node *root, int data){
     // ถ้า root เป็น NULL (ไม่มีโหนด), ส่งคืน root
-    if (root == NULL)
-        return root;
+    if (root == NULL) return root;
 
-    if (data < root->data)
-    {
+    if (data < root->data){
         // ถ้าข้อมูลน้อยกว่า root, ลบในลูกซ้าย
         root->left = deleteNode(root->left, data);
-    }
-    else if (data > root->data)
-    {
+    }else if (data > root->data){
         // ถ้าข้อมูลมากกว่า root, ลบในลูกขวา
         root->right = deleteNode(root->right, data);
-    }
-    else
-    {
+    }else{
         // พบโหนดที่ต้องการลบ (ข้อมูลเท่ากับ root)
 
         // กรณีที่โหนดไม่มีลูกหรือมีลูกเดียว:
-        if (root->left == NULL)
-        {
+        if (root->left == NULL){
             // ถ้าไม่มีลูกซ้าย, ให้ลูกขวาแทนที่โหนดปัจจุบัน
             Node *temp = root->right;
             free(root);
             return temp;
-        }
-        else if (root->right == NULL)
-        {
+        }else if (root->right == NULL){
             // ถ้าไม่มีลูกขวา, ให้ลูกซ้ายแทนที่โหนดปัจจุบัน
             Node *temp = root->left;
             free(root);
@@ -107,35 +84,28 @@ Node *deleteNode(Node *root, int data)
         root->data = temp->data;
         root->right = deleteNode(root->right, temp->data);
     }
-
     // ส่งคืนค่าโหนด root ที่อาจถูกปรับเปลี่ยน
     return root;
 }
 
 // ฟังก์ชันค้นหาข้อมูล
-Node *searchNode(Node *root, int data)
-{
+Node *searchNode(Node *root, int data){
     // ถ้า root เป็น NULL หรือพบข้อมูลที่ต้องการ, ส่งคืน root
     if (root == NULL || root->data == data)
         return root;
 
-    if (data < root->data)
-    {
+    if (data < root->data){
         // ถ้าข้อมูลน้อยกว่า root, ค้นหาในลูกซ้าย
         return searchNode(root->left, data);
-    }
-    else
-    {
+    }else{
         // ถ้าข้อมูลมากกว่า root, ค้นหาในลูกขวา
         return searchNode(root->right, data);
     }
 }
 
 // ฟังก์ชันการท่องใน BST แบบ in-order (ซ้าย-ราก-ขวา)
-void inorderTraversal(Node *root)
-{
-    if (root == NULL)
-        return;
+void inorderTraversal(Node *root){
+    if (root == NULL) return;
 
     inorderTraversal(root->left);
     printf("%d ", root->data);
@@ -143,10 +113,8 @@ void inorderTraversal(Node *root)
 }
 
 // ฟังก์ชันการท่องใน BST แบบ pre-order (ราก-ซ้าย-ขวา)
-void preorderTraversal(Node *root)
-{
-    if (root == NULL)
-        return;
+void preorderTraversal(Node *root){
+    if (root == NULL) return;
 
     // แสดงค่าของโหนดปัจจุบันก่อน แล้วจึงท่องไปยังลูกซ้ายและลูกขวาตามลำดับ
     printf("%d ", root->data);
@@ -155,8 +123,7 @@ void preorderTraversal(Node *root)
 }
 
 // ฟังก์ชันการท่องใน BST แบบ post-order (ซ้าย-ขวา-ราก)
-void postorderTraversal(Node *root)
-{
+void postorderTraversal(Node *root){
     if (root == NULL)
         return;
 
@@ -166,13 +133,11 @@ void postorderTraversal(Node *root)
     printf("%d ", root->data);
 }
 
-int main()
-{
+int main(){
     Node *root = NULL;
     int choice, data;
 
-    while (1)
-    {
+    while (1){
         printf("\nBinary Search Tree Operations:\n");
         printf("1. Insert a node\n");
         printf("2. Delete a node\n");
@@ -183,23 +148,25 @@ int main()
         printf("7. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        printf("----------------------------------------------\n");
 
-        switch (choice)
-        {
+        switch (choice){
         case 1:
-            printf("Enter data to insert: ");
-            scanf("%d", &data);
-            root = insertNode(root, data);
+            int cntNum;
+            printf("How many nodes do you want to insert? ");
+            scanf("%d", &cntNum);
+            for(int i = 0; i < cntNum; i++){
+                printf("Enter data to insert node %d : ", i+1);
+                scanf("%d", &data);
+                root = insertNode(root, data);
+            }
             break;
         case 2:
             printf("Enter data to delete: ");
             scanf("%d", &data);
-            if (searchNode(root, data) == NULL)
-            {
+            if (searchNode(root, data) == NULL){
                 printf("Node %d not found in the BST.\n", data);
-            }
-            else
-            {
+            }else{
                 root = deleteNode(root, data);
                 printf("Node %d deleted successfully.\n", data);
             }
@@ -208,12 +175,9 @@ int main()
         case 3:
             printf("Enter data to search: ");
             scanf("%d", &data);
-            if (searchNode(root, data) != NULL)
-            {
+            if (searchNode(root, data) != NULL){
                 printf("Node %d found in the BST.\n", data);
-            }
-            else
-            {
+            }else{
                 printf("Node %d not found in the BST.\n", data);
             }
             break;
@@ -239,6 +203,5 @@ int main()
             printf("Invalid choice. Please try again.\n");
         }
     }
-
     return 0;
 }
