@@ -162,48 +162,69 @@ void postorderTraversal(Node *root)
 
 int main()
 {
-    // สร้าง Binary Search Tree
     Node *root = NULL;
-    root = insertNode(root, 50);
-    insertNode(root, 30);
-    insertNode(root, 70);
-    insertNode(root, 20);
-    insertNode(root, 40);
-    insertNode(root, 60);
-    insertNode(root, 80);
+    int choice, data;
 
-    // ท่องใน BST แบบ in-order
-    printf("In-order traversal of the BST: ");
-    inorderTraversal(root);
-    printf("\n\n");
-
-    // ท่องใน BST แบบ pre-order
-    printf("Pre-order traversal of the BST: ");
-    ;
-    preorderTraversal(root);
-    printf("\n\n");
-
-    // ท่องใน BST แบบ post-order
-    printf("Post-order traversal of the BST: ");
-    postorderTraversal(root);
-    printf("\n\n");
-
-    // ลบโหนดใน BST
-    printf("Deleting node 20...\n");
-    root = deleteNode(root, 20);
-    printf("In-order traversal after deletion: ");
-    inorderTraversal(root);
-    printf("\n\n");
-
-    // ค้นหาข้อมูลใน BST
-    Node *searchedNode = searchNode(root, 40);
-    if (searchNode != NULL)
+    while (1)
     {
-        printf("Node 40 found in the BST.\n");
-    }
-    else
-    {
-        printf("Node 40 not found in the BST.\n");
+        printf("\nBinary Search Tree Operations:\n");
+        printf("1. Insert a node\n");
+        printf("2. Delete a node\n");
+        printf("3. Search for a node\n");
+        printf("4. In-order traversal\n");
+        printf("5. Pre-order traversal\n");
+        printf("6. Post-order traversal\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            printf("Enter data to insert: ");
+            scanf("%d", &data);
+            root = insertNode(root, data);
+            printf("Node inserted successfully.\n");
+            break;
+        case 2:
+            printf("Enter data to delete: ");
+            scanf("%d", &data);
+            root = deleteNode(root, data);
+            printf("Node deleted successfully.\n");
+            break;
+        case 3:
+            printf("Enter data to search: ");
+            scanf("%d", &data);
+            if (searchNode(root, data) != NULL)
+            {
+                printf("Node %d found in the BST.\n", data);
+            }
+            else
+            {
+                printf("Node %d not found in the BST.\n", data);
+            }
+            break;
+        case 4:
+            printf("In-order traversal: ");
+            inorderTraversal(root);
+            printf("\n");
+            break;
+        case 5:
+            printf("Pre-order traversal: ");
+            preorderTraversal(root);
+            printf("\n");
+            break;
+        case 6:
+            printf("Post-order traversal: ");
+            postorderTraversal(root);
+            printf("\n");
+            break;
+        case 7:
+            printf("Exiting the program.\n");
+            exit(0);
+        default:
+            printf("Invalid choice. Please try again.\n");
+        }
     }
 
     return 0;
